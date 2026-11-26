@@ -9,16 +9,18 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        body {
+        /* ESTÉTICA 1: CLIENTE (Tradicional Oriental) */
+        body.tema-cliente {
             background-color: #fff8ed;
             color: #30231d;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
-        .bg-chunghwa {
+        body.tema-cliente .navbar-custom {
             background-color: #8f171b !important;
         }
         .bg-portada {
-            background: linear-gradient(rgba(45, 14, 12, 0.82), rgba(45, 14, 12, 0.88)),
+            background: linear-gradient(rgba(45, 14, 12, 0.82), rgba(45, 14, 12, 0.88)), 
                         url('https://images.unsplash.com/photo-1552611052-33e04de081de?w=1200&q=80') center/cover no-repeat;
             color: white;
         }
@@ -36,6 +38,9 @@
         }
         .text-chunghwa {
             color: #8f171b;
+        }
+        .bg-chunghwa {
+            background-color: #8f171b !important;
         }
         .card-plato {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -55,37 +60,90 @@
             font-weight: 600;
             border-radius: 20px;
             padding: 8px 18px;
+            cursor: pointer;
         }
         .nav-pills .nav-link.active {
             background-color: #8f171b;
             color: white;
         }
+
+        /* ESTÉTICA 2: COCINA (Modo Negro / Alto Contraste) */
+        body.tema-cocina {
+            background-color: #0b0c0e;
+            color: #f1f5f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s ease;
+        }
+        body.tema-cocina .navbar-custom {
+            background-color: #000000 !important;
+            border-bottom: 2px solid #f59e0b;
+        }
+        body.tema-cocina .card-cocina {
+            background-color: #16181d;
+            border: 1px solid #2d3139;
+            color: #f8fafc;
+        }
+        body.tema-cocina .footer-custom {
+            background: #000000 !important;
+            border-top: 1px solid #222;
+        }
+
+        /* ESTÉTICA 3: ADMINISTRACIÓN (Limpia, Minimalista y Clara) */
+        body.tema-admin {
+            background-color: #f4f6f9;
+            color: #1e293b;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+        body.tema-admin .navbar-custom {
+            background-color: #1e293b !important;
+            border-bottom: 3px solid #3b82f6;
+        }
+        body.tema-admin .admin-card {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
+        }
+        body.tema-admin .footer-custom {
+            background: #1e293b !important;
+        }
     </style>
 </head>
-<body>
+<body class="tema-cliente">
 
     <!-- BARRA DE NAVEGACIÓN -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-chunghwa sticky-top shadow">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top shadow">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4" href="#inicio">中 ChungHwa</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#menu">Nuestra Carta</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#reservas">Reservar Mesa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#historial">Mis Pedidos</a></li>
-                    <li class="nav-item d-none" id="navCocina"><a class="nav-link text-warning fw-semibold" href="#cocina"><i class="bi bi-fire"></i> Cocina</a></li>
-                    <li class="nav-item d-none" id="navAdmin"><a class="nav-link text-warning fw-semibold" href="#admin"><i class="bi bi-sliders"></i> Administración</a></li>
+                <ul class="navbar-nav me-auto" id="menuNavegacion">
+                    <li class="nav-item enlace-cliente"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item enlace-cliente"><a class="nav-link" href="#menu">Nuestra Carta</a></li>
+                    <li class="nav-item enlace-cliente"><a class="nav-link" href="#reservas">Reservar Mesa</a></li>
+                    <li class="nav-item enlace-cliente"><a class="nav-link" href="#historial">Mis Pedidos y Reservas</a></li>
+                    
+                    <li class="nav-item d-none" id="navCocina">
+                        <a class="nav-link text-warning fw-semibold" href="#cocina"><i class="bi bi-fire"></i> Monitor de Cocina</a>
+                    </li>
+                    
+                    <li class="nav-item d-none" id="navAdmin">
+                        <a class="nav-link text-info fw-semibold" href="#admin"><i class="bi bi-sliders"></i> Panel Administración</a>
+                    </li>
                 </ul>
-                <div class="d-flex gap-2 align-items-center mt-2 mt-lg-0">
-                    <span id="badgeUsuario" class="badge bg-light text-dark py-2 px-3">Vista: Cliente</span>
-                    <button class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalLogin">
-                        <i class="bi bi-person-badge"></i> Acceso Personal
+                <div class="d-flex gap-2 align-items-center mt-2 mt-lg-0 flex-wrap">
+                    <span id="badgeUsuario" class="badge bg-light text-dark py-2 px-3">
+                        <i class="bi bi-person"></i> Invitado (Cliente)
+                    </span>
+                    <button id="btnAbrirLogin" class="btn btn-outline-light btn-sm" data-bs-toggle="modal" data-bs-target="#modalLogin">
+                        <i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión
                     </button>
-                    <button class="btn btn-dorado btn-sm position-relative px-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCarrito">
+                    <button id="btnCerrarSesion" class="btn btn-danger btn-sm d-none" onclick="cerrarSesion()">
+                        <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                    </button>
+                    <button id="btnCarritoNav" class="btn btn-dorado btn-sm position-relative px-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCarrito">
                         <i class="bi bi-bag-fill"></i> Mi Pedido
                         <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">0</span>
                     </button>
@@ -94,290 +152,377 @@
         </div>
     </nav>
 
-    <!-- PORTADA -->
-    <header class="bg-portada py-5 text-center" id="inicio">
-        <div class="container py-4">
-            <span class="badge bg-warning text-dark mb-2 px-3 py-2">Auténtica Cocina Oriental en Concepción</span>
-            <h1 class="display-4 fw-bold mb-3">Restaurante Chino ChungHwa</h1>
-            <p class="lead mb-4 mx-auto" style="max-width: 650px;">
-                Sabores tradicionales preparados al momento. Pide para retirar en local, despacho a domicilio o reserva tu mesa con nosotros.
-            </p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#menu" class="btn btn-dorado btn-lg px-4">Explorar Carta</a>
-                <a href="#reservas" class="btn btn-outline-light btn-lg px-4">Reservar Mesa</a>
-            </div>
-        </div>
-    </header>
-
-    <main class="container my-5">
-
-        <section class="row g-4 mb-5 text-center">
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4">
-                    <div class="card-body">
-                        <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
-                            <i class="bi bi-bag-check fs-2 text-chunghwa"></i>
-                        </div>
-                        <h5 class="fw-bold">Retiro en Local</h5>
-                        <p class="text-muted small mb-0">Haz tu pedido en línea y retíralo sin esperas en Barros Arana 262.</p>
-                    </div>
+    <!-- VISTA CLIENTE -->
+    <div id="vistaClienteWrapper">
+        <header class="bg-portada py-5 text-center" id="inicio">
+            <div class="container py-4">
+                <span class="badge bg-warning text-dark mb-2 px-3 py-2">Auténtica Cocina Oriental en Concepción</span>
+                <h1 class="display-4 fw-bold mb-3">Restaurante Chino ChungHwa</h1>
+                <p class="lead mb-4 mx-auto" style="max-width: 650px;">
+                    Sabores tradicionales preparados al momento. Pide para retirar en local, despacho a domicilio o reserva tu mesa con nosotros.
+                </p>
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="#menu" class="btn btn-dorado btn-lg px-4">Explorar Carta</a>
+                    <a href="#reservas" class="btn btn-outline-light btn-lg px-4">Reservar Mesa</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4">
-                    <div class="card-body">
-                        <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
-                            <i class="bi bi-bicycle fs-2 text-chunghwa"></i>
-                        </div>
-                        <h5 class="fw-bold">Despacho a Domicilio</h5>
-                        <p class="text-muted small mb-0">Llevamos tus platos calientes directamente hasta la puerta de tu casa.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm p-3 rounded-4">
-                    <div class="card-body">
-                        <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
-                            <i class="bi bi-calendar-heart fs-2 text-chunghwa"></i>
-                        </div>
-                        <h5 class="fw-bold">Atención en Salón</h5>
-                        <p class="text-muted small mb-0">Reserva una mesa para compartir en familia o con amigos.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        </header>
 
-        <section id="menu" class="mb-5 pt-2">
-            <div class="text-center mb-4">
-                <h2 class="text-chunghwa fw-bold display-6">Nuestra Carta</h2>
-                <p class="text-muted">Selecciona una categoría o filtra según tus preferencias</p>
-            </div>
-
-            <ul class="nav nav-pills justify-content-center gap-2 mb-4" id="tabsCategorias">
-                <li class="nav-item">
-                    <button class="nav-link active" onclick="seleccionarCategoriaTab('Todos', this)">Todos</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" onclick="seleccionarCategoriaTab('Entradas', this)">Entradas</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" onclick="seleccionarCategoriaTab('Arroces', this)">Arroces</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" onclick="seleccionarCategoriaTab('Carnes', this)">Carnes</button>
-                </li>
-                <li class="nav-item">
-                    <button class="nav-link" onclick="seleccionarCategoriaTab('Aves', this)">Aves</button>
-                </li>
-            </ul>
-
-            <div class="row g-2 mb-4 bg-white p-3 rounded-4 shadow-sm align-items-center">
-                <div class="col-md-5">
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
-                        <input type="text" id="buscar" class="form-control border-start-0" placeholder="Buscar por nombre (ej: Wantán, Chaufán)..." onkeyup="mostrarPlatos()">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <select id="filtroProteina" class="form-select" onchange="mostrarPlatos()">
-                        <option value="Todas">Proteína: Todas</option>
-                        <option value="Vacuno">Vacuno</option>
-                        <option value="Pollo">Pollo</option>
-                        <option value="Cerdo">Cerdo</option>
-                        <option value="Mixto / Vegetal">Mixto / Vegetal</option>
-                    </select>
-                </div>
-                <div class="col-md-3">
-                    <select id="filtroFormato" class="form-select" onchange="mostrarPlatos()">
-                        <option value="Todos">Tamaño: Todos</option>
-                        <option value="Individual">Porción Individual</option>
-                        <option value="Familiar">Porción Familiar</option>
-                    </select>
-                </div>
-                <div class="col-md-1 d-grid">
-                    <button class="btn btn-outline-secondary" title="Limpiar filtros" onclick="limpiarFiltros()">
-                        <i class="bi bi-arrow-counterclockwise"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="row g-4" id="listaPlatos"></div>
-        </section>
-
-        <hr class="my-5">
-
-        <!-- RESERVA DE MESAS -->
-        <section id="reservas" class="mb-5 pt-2">
-            <div class="row align-items-center g-4">
-                <div class="col-lg-5">
-                    <h2 class="text-chunghwa fw-bold mb-3">Reserva tu Mesa</h2>
-                    <p class="text-muted">Asegura tu lugar en nuestro salón principal. Completa tus datos y te confirmaremos al instante.</p>
-                    <div class="bg-white p-3 rounded-4 shadow-sm">
-                        <p class="mb-2"><i class="bi bi-geo-alt-fill text-chunghwa me-2"></i><strong>Dirección:</strong> Barros Arana 262, Concepción</p>
-                        <p class="mb-2"><i class="bi bi-clock-fill text-chunghwa me-2"></i><strong>Horario:</strong> Lunes a Domingo, 12:00 a 22:30 hrs</p>
-                        <p class="mb-0"><i class="bi bi-telephone-fill text-chunghwa me-2"></i><strong>Teléfono:</strong> +56 41 222 3344</p>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <form id="formReserva" class="card p-4 shadow-sm border-0 rounded-4" onsubmit="guardarReserva(event)">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label fw-semibold">Nombre completo</label>
-                                <input type="text" id="resNombre" class="form-control" placeholder="Ej: Camila Soto" required>
+        <main class="container my-5">
+            <!-- TARJETAS INFORMATIVAS -->
+            <section class="row g-4 mb-5 text-center">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-3 rounded-4">
+                        <div class="card-body">
+                            <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
+                                <i class="bi bi-bag-check fs-2 text-chunghwa"></i>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label fw-semibold">Teléfono o correo</label>
-                                <input type="text" id="resContacto" class="form-control" placeholder="+56 9 1234 5678" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label fw-semibold">Fecha</label>
-                                <input type="date" id="resFecha" class="form-control" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label fw-semibold">Hora</label>
-                                <input type="time" id="resHora" class="form-control" required>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label fw-semibold">Comensales</label>
-                                <input type="number" id="resPersonas" class="form-control" min="1" max="20" value="2" required>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label fw-semibold">Comentarios adicionales</label>
-                                <textarea id="resNotas" class="form-control" rows="2" placeholder="Silla para bebé, celebración especial, etc."></textarea>
-                            </div>
-                            <div class="col-12 text-end">
-                                <button type="submit" class="btn btn-dorado px-4">Confirmar Reserva</button>
-                            </div>
-                        </div>
-                    </form>
-                    <div id="alertaReserva" class="alert alert-success mt-3 d-none rounded-4"></div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="my-5">
-
-        <!-- HISTORIAL DE PEDIDOS -->
-        <section id="historial" class="mb-5 pt-2">
-            <h2 class="text-center text-chunghwa fw-bold mb-2">Seguimiento e Historial de Pedidos</h2>
-            <p class="text-center text-muted mb-4">Revisa el estado en tiempo real de las órdenes realizadas</p>
-            <div class="table-responsive bg-white p-3 rounded-4 shadow-sm">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Código</th>
-                            <th>Cliente</th>
-                            <th>Entrega</th>
-                            <th>Platos</th>
-                            <th>Total</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaHistorial"></tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="cocina" class="mb-5 d-none">
-            <div class="p-4 bg-dark text-white rounded-4 shadow">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="text-warning fw-bold mb-0"><i class="bi bi-fire"></i> Monitor de Cocina</h2>
-                    <span class="badge bg-warning text-dark">Órdenes Activas</span>
-                </div>
-                <div class="row g-3" id="listaCocina"></div>
-            </div>
-        </section>
-
-        <section id="admin" class="mb-5 d-none">
-            <div class="p-4 bg-white border rounded-4 shadow-sm">
-                <h2 class="text-chunghwa fw-bold mb-4"><i class="bi bi-sliders"></i> Panel de Administración</h2>
-
-                <!-- Resumen de Ventas -->
-                <h5 class="fw-bold mb-3">Resumen de Ventas</h5>
-                <div class="row g-3 mb-4 text-center">
-                    <div class="col-md-4">
-                        <div class="p-3 bg-light rounded-3 border">
-                            <small class="text-muted d-block">Pedidos Realizados</small>
-                            <h3 id="repPedidos" class="fw-bold mb-0">0</h3>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="p-3 bg-light rounded-3 border">
-                            <small class="text-muted d-block">Ingresos Totales</small>
-                            <h3 id="repIngresos" class="fw-bold text-success mb-0">$0</h3>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="p-3 bg-light rounded-3 border">
-                            <small class="text-muted d-block">Mesas Reservadas</small>
-                            <h3 id="repReservas" class="fw-bold mb-0">0</h3>
+                            <h5 class="fw-bold">Retiro en Local</h5>
+                            <p class="text-muted small mb-0">Haz tu pedido en línea y retíralo sin esperas en Barros Arana 262.</p>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-3 rounded-4">
+                        <div class="card-body">
+                            <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
+                                <i class="bi bi-bicycle fs-2 text-chunghwa"></i>
+                            </div>
+                            <h5 class="fw-bold">Despacho a Domicilio</h5>
+                            <p class="text-muted small mb-0">Llevamos tus platos calientes directamente hasta la puerta de tu casa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-3 rounded-4">
+                        <div class="card-body">
+                            <div class="bg-light rounded-circle d-inline-flex p-3 mb-3">
+                                <i class="bi bi-calendar-heart fs-2 text-chunghwa"></i>
+                            </div>
+                            <h5 class="fw-bold">Atención en Salón</h5>
+                            <p class="text-muted small mb-0">Reserva una mesa para compartir en familia o con amigos.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                <!-- Gestión de Platos -->
-                <h5 class="fw-bold mb-3">Gestión de Platos de la Carta</h5>
-                <form id="formCrudPlato" class="row g-2 mb-4 bg-light p-3 rounded-3" onsubmit="guardarPlatoCrud(event)">
-                    <input type="hidden" id="crudIndex" value="-1">
+            <!-- NUESTRA CARTA -->
+            <section id="menu" class="mb-5 pt-2">
+                <div class="text-center mb-4">
+                    <h2 class="text-chunghwa fw-bold display-6">Nuestra Carta</h2>
+                    <p class="text-muted">Selecciona una categoría o filtra según tus preferencias (Máx. 100 productos por pedido)</p>
+                </div>
+
+                <ul class="nav nav-pills justify-content-center gap-2 mb-4" id="tabsCategorias">
+                    <li class="nav-item">
+                        <button type="button" class="nav-link active" onclick="seleccionarCategoriaTab('Todos', this)">Todos</button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" onclick="seleccionarCategoriaTab('Entradas', this)">Entradas</button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" onclick="seleccionarCategoriaTab('Arroces', this)">Arroces</button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" onclick="seleccionarCategoriaTab('Carnes', this)">Carnes</button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" onclick="seleccionarCategoriaTab('Aves', this)">Aves</button>
+                    </li>
+                </ul>
+
+                <div class="row g-2 mb-4 bg-white p-3 rounded-4 shadow-sm align-items-center">
+                    <div class="col-md-5">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
+                            <input type="text" id="buscar" class="form-control border-start-0" placeholder="Buscar por nombre (ej: Wantán, Chaufán)..." onkeyup="mostrarPlatos()">
+                        </div>
+                    </div>
                     <div class="col-md-3">
-                        <input type="text" id="crudNombre" class="form-control" placeholder="Nombre del plato" required>
-                    </div>
-                    <div class="col-md-2">
-                        <select id="crudCategoria" class="form-select">
-                            <option value="Entradas">Entradas</option>
-                            <option value="Arroces">Arroces</option>
-                            <option value="Carnes">Carnes</option>
-                            <option value="Aves">Aves</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <select id="crudProteina" class="form-select">
+                        <select id="filtroProteina" class="form-select" onchange="mostrarPlatos()">
+                            <option value="Todas">Proteína: Todas</option>
                             <option value="Vacuno">Vacuno</option>
                             <option value="Pollo">Pollo</option>
                             <option value="Cerdo">Cerdo</option>
                             <option value="Mixto / Vegetal">Mixto / Vegetal</option>
                         </select>
                     </div>
-                    <div class="col-md-2">
-                        <select id="crudFormato" class="form-select">
-                            <option value="Individual">Individual</option>
-                            <option value="Familiar">Familiar</option>
+                    <div class="col-md-3">
+                        <select id="filtroFormato" class="form-select" onchange="mostrarPlatos()">
+                            <option value="Todos">Tamaño: Todos</option>
+                            <option value="Individual">Porción Individual</option>
+                            <option value="Familiar">Porción Familiar</option>
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <input type="number" id="crudPrecio" class="form-control" placeholder="Precio (CLP)" required>
+                    <div class="col-md-1 d-grid">
+                        <button type="button" class="btn btn-outline-secondary" title="Limpiar filtros" onclick="limpiarFiltros()">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </button>
                     </div>
-                    <div class="col-md-6">
-                        <input type="text" id="crudDescripcion" class="form-control" placeholder="Descripción del plato" required>
+                </div>
+
+                <div class="row g-4" id="listaPlatos"></div>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- RESERVA DE MESAS -->
+            <section id="reservas" class="mb-5 pt-2">
+                <div class="row align-items-center g-4">
+                    <div class="col-lg-5">
+                        <h2 class="text-chunghwa fw-bold mb-3">Reserva tu Mesa</h2>
+                        <p class="text-muted">Asegura tu lugar en nuestro salón principal. No se permiten reservas duplicadas en el mismo horario.</p>
+                        <div class="bg-white p-3 rounded-4 shadow-sm">
+                            <p class="mb-2"><i class="bi bi-geo-alt-fill text-chunghwa me-2"></i><strong>Dirección:</strong> Barros Arana 262, Concepción</p>
+                            <p class="mb-2"><i class="bi bi-clock-fill text-chunghwa me-2"></i><strong>Horario:</strong> Lunes a Domingo, 12:00 a 22:30 hrs</p>
+                            <p class="mb-0"><i class="bi bi-telephone-fill text-chunghwa me-2"></i><strong>Teléfono:</strong> +56 41 222 3344</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <form id="formReserva" class="card p-4 shadow-sm border-0 rounded-4" onsubmit="guardarReserva(event)">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Nombre completo</label>
+                                    <input type="text" id="resNombre" class="form-control" placeholder="Ej: Camila Soto" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label fw-semibold">Teléfono móvil</label>
+                                    <input type="tel" id="resContacto" class="form-control" placeholder="+56 9 1234 5678 o 9 1234 5678" required>
+                                    <div class="form-text small">Formato: +56 9 1234 5678 o 9 1234 5678</div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Fecha</label>
+                                    <input type="date" id="resFecha" class="form-control" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Hora</label>
+                                    <input type="time" id="resHora" class="form-control" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label fw-semibold">Comensales</label>
+                                    <input type="number" id="resPersonas" class="form-control" min="1" max="20" value="2" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label fw-semibold">Comentarios adicionales</label>
+                                    <textarea id="resNotas" class="form-control" rows="2" placeholder="Silla para bebé, celebración especial, etc."></textarea>
+                                </div>
+                                <div class="col-12 text-end">
+                                    <button type="submit" class="btn btn-dorado px-4">Confirmar Reserva</button>
+                                </div>
+                            </div>
+                        </form>
+                        <div id="alertaReserva" class="alert mt-3 d-none rounded-4"></div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="my-5">
+
+            <!-- HISTORIAL DE PEDIDOS Y RESERVAS DEL CLIENTE -->
+            <section id="historial" class="mb-5 pt-2">
+                <div class="text-center mb-4">
+                    <h2 class="text-chunghwa fw-bold mb-2">Mis Pedidos y Reservas de Mesa</h2>
+                    <p class="text-muted" id="subtituloHistorial">Revisa el estado en tiempo real de tus órdenes y tus mesas reservadas</p>
+                </div>
+
+                <ul class="nav nav-tabs mb-3" id="tabsClienteHistorial" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active fw-bold text-chunghwa" id="tab-pedidos-btn" data-bs-toggle="tab" data-bs-target="#tab-pedidos" type="button" role="tab">
+                            <i class="bi bi-bag-check me-1"></i> Mis Pedidos
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fw-bold text-chunghwa" id="tab-reservas-btn" data-bs-toggle="tab" data-bs-target="#tab-reservas" type="button" role="tab">
+                            <i class="bi bi-calendar-check me-1"></i> Mis Reservas de Mesa
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-pedidos" role="tabpanel">
+                        <div class="table-responsive bg-white p-3 rounded-4 shadow-sm">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Cliente</th>
+                                        <th>Teléfono</th>
+                                        <th>Entrega</th>
+                                        <th>Platos</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaHistorial"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="tab-reservas" role="tabpanel">
+                        <div class="table-responsive bg-white p-3 rounded-4 shadow-sm">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Titular</th>
+                                        <th>Teléfono</th>
+                                        <th>Fecha</th>
+                                        <th>Hora</th>
+                                        <th>Personas</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaReservasCliente"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- VISTA COCINA (Estética Oscura / Negra) -->
+    <main class="container my-5 d-none" id="vistaCocinaWrapper">
+        <section id="cocina">
+            <div class="p-4 rounded-4 shadow-lg" style="background-color: #111317; border: 1px solid #2b303a;">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-3">
+                    <div>
+                        <h2 class="text-warning fw-bold mb-1"><i class="bi bi-fire"></i> Monitor de Cocina — ChungHwa</h2>
+                        <p class="text-white-50 small mb-0">Vista en tiempo real de comandas activas para preparación</p>
+                    </div>
+                    <span class="badge bg-warning text-dark fs-6 px-3 py-2" id="contadorOrdenesCocina">0 Órdenes Activas</span>
+                </div>
+                <div class="row g-4" id="listaCocina"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- VISTA ADMINISTRACIÓN (Estética Limpia y Minimalista) -->
+    <main class="container my-5 d-none" id="vistaAdminWrapper">
+        <section id="admin">
+            <div class="p-4 admin-card rounded-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+                    <div>
+                        <h2 class="text-dark fw-bold mb-0"><i class="bi bi-sliders text-primary me-2"></i>Panel de Administración</h2>
+                        <small class="text-muted">Gestión integral de ventas, reservas de mesas y carta del restaurante</small>
+                    </div>
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">Modo Administrador</span>
+                </div>
+
+                <!-- Métricas Generales -->
+                <h6 class="text-uppercase text-muted fw-bold mb-3">Métricas Generales</h6>
+                <div class="row g-3 mb-5 text-center">
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 border">
+                            <small class="text-muted d-block">Pedidos Totales</small>
+                            <h3 id="repPedidos" class="fw-bold text-dark mb-0">0</h3>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <input type="url" id="crudImagen" class="form-control" placeholder="Enlace de imagen (https://...)" required>
+                        <div class="p-3 bg-light rounded-3 border">
+                            <small class="text-muted d-block">Ingresos Acumulados</small>
+                            <h3 id="repIngresos" class="fw-bold text-success mb-0">$0</h3>
+                        </div>
                     </div>
-                    <div class="col-md-2 d-grid">
-                        <button type="submit" class="btn btn-success">Guardar Plato</button>
+                    <div class="col-md-4">
+                        <div class="p-3 bg-light rounded-3 border">
+                            <small class="text-muted d-block">Reservas Registradas</small>
+                            <h3 id="repReservas" class="fw-bold text-primary mb-0">0</h3>
+                        </div>
                     </div>
-                </form>
+                </div>
 
-                <div class="table-responsive">
-                    <table class="table table-sm table-bordered align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Plato</th>
-                                <th>Categoría</th>
-                                <th>Proteína</th>
-                                <th>Formato</th>
-                                <th>Precio</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tablaCrudPlatos"></tbody>
-                    </table>
+                <!-- Administración de Reservas de Mesas -->
+                <div class="mb-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold text-dark mb-0"><i class="bi bi-calendar2-week text-primary me-2"></i>Administración de Reservas de Mesas</h5>
+                        <span class="small text-muted">Las horas ocupadas bloquean automáticamente nuevas reservas</span>
+                    </div>
+                    <div class="table-responsive border rounded-3">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Cód.</th>
+                                    <th>Cliente</th>
+                                    <th>Teléfono</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Comensales</th>
+                                    <th>Notas</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaAdminReservas"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Gestión de Platos de la Carta -->
+                <div>
+                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-journal-text text-primary me-2"></i>Gestión de Platos de la Carta</h5>
+                    <form id="formCrudPlato" class="row g-2 mb-4 bg-light p-3 rounded-3 border" onsubmit="guardarPlatoCrud(event)">
+                        <input type="hidden" id="crudIndex" value="-1">
+                        <div class="col-md-3">
+                            <input type="text" id="crudNombre" class="form-control" placeholder="Nombre del plato" required>
+                        </div>
+                        <div class="col-md-2">
+                            <select id="crudCategoria" class="form-select">
+                                <option value="Entradas">Entradas</option>
+                                <option value="Arroces">Arroces</option>
+                                <option value="Carnes">Carnes</option>
+                                <option value="Aves">Aves</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select id="crudProteina" class="form-select">
+                                <option value="Vacuno">Vacuno</option>
+                                <option value="Pollo">Pollo</option>
+                                <option value="Cerdo">Cerdo</option>
+                                <option value="Mixto / Vegetal">Mixto / Vegetal</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select id="crudFormato" class="form-select">
+                                <option value="Individual">Individual</option>
+                                <option value="Familiar">Familiar</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" id="crudPrecio" class="form-control" placeholder="Precio (CLP)" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="crudDescripcion" class="form-control" placeholder="Descripción del plato" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="url" id="crudImagen" class="form-control" placeholder="Enlace de imagen (https://...)" required>
+                        </div>
+                        <div class="col-md-2 d-grid">
+                            <button type="submit" class="btn btn-primary">Guardar Plato</button>
+                        </div>
+                    </form>
+
+                    <div class="table-responsive border rounded-3">
+                        <table class="table table-sm table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Plato</th>
+                                    <th>Categoría</th>
+                                    <th>Proteína</th>
+                                    <th>Formato</th>
+                                    <th>Precio</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaCrudPlatos"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
-
     </main>
 
+    <!-- MODAL PERSONALIZAR PLATO -->
     <div class="modal fade" id="modalPersonalizar" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0">
@@ -388,8 +533,9 @@
                 <div class="modal-body">
                     <input type="hidden" id="persPlatoIndex">
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Cantidad</label>
-                        <input type="number" id="persCantidad" class="form-control" value="1" min="1" max="15">
+                        <label class="form-label fw-semibold">Cantidad (Máx. 100 productos por pedido total)</label>
+                        <input type="number" id="persCantidad" class="form-control" value="1" min="1" max="100">
+                        <div class="form-text text-muted" id="infoCupoCarrito"></div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Nivel de picante</label>
@@ -421,17 +567,26 @@
         </div>
     </div>
 
+    <!-- OFFCANVAS CARRITO DE COMPRAS -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasCarrito">
         <div class="offcanvas-header bg-chunghwa text-white">
             <h5 class="offcanvas-title"><i class="bi bi-bag-fill me-2"></i>Tu Pedido</h5>
             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small text-muted">Productos en carrito:</span>
+                <span class="badge bg-secondary" id="badgeCupoCarrito">0 / 100 máx.</span>
+            </div>
             <div id="itemsCarrito" class="flex-grow-1 overflow-auto mb-3"></div>
             <div class="border-top pt-3">
                 <div class="mb-2">
                     <label class="form-label fw-semibold small">Tu nombre</label>
                     <input type="text" id="carritoCliente" class="form-control form-control-sm" placeholder="Nombre quien recibe o retira">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label fw-semibold small">Teléfono de contacto</label>
+                    <input type="tel" id="carritoTelefono" class="form-control form-control-sm" placeholder="+56 9 1234 5678 o 9 1234 5678">
                 </div>
                 <div class="mb-2">
                     <label class="form-label fw-semibold small">Modalidad de entrega</label>
@@ -449,11 +604,12 @@
                     <span>Total a pagar:</span>
                     <span id="totalCarrito" class="text-chunghwa">$0</span>
                 </div>
-                <button class="btn btn-dorado w-100 py-2" onclick="finalizarPedido()">Confirmar Pedido</button>
+                <button type="button" class="btn btn-dorado w-100 py-2" onclick="finalizarPedido()">Confirmar Pedido</button>
             </div>
         </div>
     </div>
 
+    <!-- MODAL CONFIRMACIÓN PEDIDO -->
     <div class="modal fade" id="modalConfirmacion" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content text-center p-4 rounded-4 border-0">
@@ -462,47 +618,109 @@
                 <p class="text-muted">Tu orden ya está en cocina. Guarda tu código de seguimiento:</p>
                 <div class="alert alert-warning fs-3 fw-bold" id="codigoGenerado">#CH-0000</div>
                 <p id="resumenConfirmacion" class="small text-muted"></p>
-                <button class="btn btn-dorado px-4" data-bs-dismiss="modal">Listo</button>
+                <button type="button" class="btn btn-dorado px-4" data-bs-dismiss="modal">Listo</button>
             </div>
         </div>
     </div>
 
+    <!-- MODAL DE INICIO DE SESIÓN -->
     <div class="modal fade" id="modalLogin" tabindex="-1">
-        <div class="modal-dialog modal-sm modal-dialog-centered">
-            <div class="modal-content rounded-4 border-0">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
                 <div class="modal-header bg-chunghwa text-white">
-                    <h5 class="modal-title">Cambiar Vista</h5>
+                    <h5 class="modal-title"><i class="bi bi-shield-lock me-2"></i>Acceso al Sistema</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">
-                    <p class="small text-muted">Elige el perfil con el que deseas navegar:</p>
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-outline-dark" onclick="cambiarRol('Cliente')">
-                            <i class="bi bi-person"></i> Cliente
-                        </button>
-                        <button class="btn btn-outline-warning text-dark" onclick="cambiarRol('Cocina')">
-                            <i class="bi bi-fire"></i> Personal de Cocina
-                        </button>
-                        <button class="btn btn-outline-danger" onclick="cambiarRol('Admin')">
-                            <i class="bi bi-sliders"></i> Administrador
-                        </button>
+                <div class="modal-body p-4">
+                    <ul class="nav nav-pills nav-fill mb-4" id="loginTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="tab-login-cliente" data-bs-toggle="pill" data-bs-target="#panel-login-cliente" type="button">
+                                <i class="bi bi-person"></i> Cliente (Opcional)
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="tab-login-personal" data-bs-toggle="pill" data-bs-target="#panel-login-personal" type="button">
+                                <i class="bi bi-key"></i> Cocina / Admin
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <!-- Panel Acceso Cliente -->
+                        <div class="tab-pane fade show active" id="panel-login-cliente">
+                            <p class="small text-muted">
+                                Iniciar sesión como cliente es <strong>opcional</strong>. Si ingresas tus datos, tus pedidos y reservas quedarán guardados bajo tu nombre.
+                            </p>
+                            <form onsubmit="iniciarSesionCliente(event)">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold small">Tu Nombre</label>
+                                    <input type="text" id="loginClienteNombre" class="form-control" placeholder="Ej: Camila Soto" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold small">Teléfono Móvil</label>
+                                    <input type="tel" id="loginClienteTelefono" class="form-control" placeholder="+56 9 1234 5678 o 9 1234 5678" required>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-dorado">Ingresar como Cliente</button>
+                                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Continuar como Invitado</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Panel Acceso Cocina / Administración -->
+                        <div class="tab-pane fade" id="panel-login-personal">
+                            <form onsubmit="iniciarSesionPersonal(event)">
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold small">Área / Rol</label>
+                                    <select id="loginRolPersonal" class="form-select">
+                                        <option value="Cocina">Personal de Cocina</option>
+                                        <option value="Admin">Administración</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold small">Usuario</label>
+                                    <input type="text" id="loginUsuario" class="form-control" placeholder="Ingresa tu usuario" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold small">Contraseña</label>
+                                    <input type="password" id="loginClave" class="form-control" placeholder="••••••••" required>
+                                </div>
+                                <div id="errorLoginPersonal" class="alert alert-danger py-2 small d-none"></div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-dark">Ingresar al Panel</button>
+                                </div>
+                                <div class="mt-3 p-2 bg-light rounded small text-muted border">
+                                    <strong>Credenciales de prueba:</strong><br>
+                                    • Cocina: usuario <code>cocina</code> / clave <code>1234</code><br>
+                                    • Admin: usuario <code>admin</code> / clave <code>admin123</code>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-portada text-center py-4 mt-5">
+    <!-- FOOTER -->
+    <footer class="bg-portada footer-custom text-center py-4 mt-5">
         <div class="container">
             <h5 class="fw-bold">中 ChungHwa — Restaurante Chino</h5>
             <p class="mb-0 text-white-50 small">Barros Arana 262, Concepción, Chile</p>
         </div>
     </footer>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const fotoRespaldo = "https://images.unsplash.com/photo-1585032226651-759b368d7246?w=600&q=80";
+        const MAX_PRODUCTOS_PEDIDO = 100;
+
+        const CREDENCIALES_STAFF = {
+            Cocina: { usuario: "cocina", clave: "1234" },
+            Admin: { usuario: "admin", clave: "admin123" }
+        };
 
         const platosIniciales = [
             {
@@ -561,22 +779,203 @@
             }
         ];
 
-        let platos = JSON.parse(localStorage.getItem("ch_platos_v2")) || platosIniciales;
+        function cargarPlatosSeguros() {
+            try {
+                const guardados = JSON.parse(localStorage.getItem("ch_platos_v4"));
+                if (Array.isArray(guardados) && guardados.length > 0) {
+                    return guardados;
+                }
+            } catch (e) {}
+            return [...platosIniciales];
+        }
+
+        let platos = cargarPlatosSeguros();
         let carrito = [];
-        let pedidos = JSON.parse(localStorage.getItem("ch_pedidos_v2")) || [];
-        let reservas = JSON.parse(localStorage.getItem("ch_reservas_v2")) || [];
+        let pedidos = JSON.parse(localStorage.getItem("ch_pedidos_v4")) || [];
+        let reservas = JSON.parse(localStorage.getItem("ch_reservas_v4")) || [];
         let categoriaSeleccionada = "Todos";
 
+        let sesionActual = JSON.parse(sessionStorage.getItem("ch_sesion_v4")) || {
+            rol: "Cliente",
+            autenticado: false,
+            nombre: "Invitado",
+            telefono: ""
+        };
+
         function guardarDatos() {
-            localStorage.setItem("ch_platos_v2", JSON.stringify(platos));
-            localStorage.setItem("ch_pedidos_v2", JSON.stringify(pedidos));
-            localStorage.setItem("ch_reservas_v2", JSON.stringify(reservas));
+            localStorage.setItem("ch_platos_v4", JSON.stringify(platos));
+            localStorage.setItem("ch_pedidos_v4", JSON.stringify(pedidos));
+            localStorage.setItem("ch_reservas_v4", JSON.stringify(reservas));
+        }
+
+        function guardarSesion() {
+            sessionStorage.setItem("ch_sesion_v4", JSON.stringify(sesionActual));
+        }
+
+        function validarTelefonoChileno(telefono) {
+            const limpio = telefono.trim();
+            const regex = /^(\+56\s?)?9\s?\d{4}\s?\d{4}$/;
+            return regex.test(limpio);
+        }
+
+        function normalizarTelefono(telefono) {
+            const digitos = telefono.replace(/\D/g, "");
+            const ultimos8 = digitos.slice(-8);
+            return `+56 9 ${ultimos8.slice(0, 4)} ${ultimos8.slice(4)}`;
+        }
+
+        function iniciarSesionCliente(e) {
+            e.preventDefault();
+            const nombre = document.getElementById("loginClienteNombre").value.trim();
+            const telefono = document.getElementById("loginClienteTelefono").value.trim();
+
+            if (!validarTelefonoChileno(telefono)) {
+                alert("Número de teléfono inválido. Usa el formato +56 9 1234 5678 o 9 1234 5678.");
+                return;
+            }
+
+            sesionActual = {
+                rol: "Cliente",
+                autenticado: true,
+                nombre: nombre,
+                telefono: normalizarTelefono(telefono)
+            };
+            guardarSesion();
+            const modalEl = document.getElementById("modalLogin");
+            const modalInst = bootstrap.Modal.getInstance(modalEl);
+            if (modalInst) modalInst.hide();
+            aplicarInterfazPorRol();
+        }
+
+        function iniciarSesionPersonal(e) {
+            e.preventDefault();
+            const rol = document.getElementById("loginRolPersonal").value;
+            const usuario = document.getElementById("loginUsuario").value.trim();
+            const clave = document.getElementById("loginClave").value.trim();
+            const errorBox = document.getElementById("errorLoginPersonal");
+
+            const cred = CREDENCIALES_STAFF[rol];
+            if (cred && usuario === cred.usuario && clave === cred.clave) {
+                errorBox.classList.add("d-none");
+                sesionActual = {
+                    rol: rol,
+                    autenticado: true,
+                    nombre: rol === "Admin" ? "Administrador" : "Equipo Cocina",
+                    telefono: ""
+                };
+                guardarSesion();
+                e.target.reset();
+                const modalEl = document.getElementById("modalLogin");
+                const modalInst = bootstrap.Modal.getInstance(modalEl);
+                if (modalInst) modalInst.hide();
+                aplicarInterfazPorRol();
+            } else {
+                errorBox.textContent = "Usuario o contraseña incorrectos. Acceso denegado.";
+                errorBox.classList.remove("d-none");
+            }
+        }
+
+        function cerrarSesion() {
+            sesionActual = {
+                rol: "Cliente",
+                autenticado: false,
+                nombre: "Invitado",
+                telefono: ""
+            };
+            guardarSesion();
+            aplicarInterfazPorRol();
+        }
+
+        function aplicarInterfazPorRol() {
+            const body = document.body;
+            const badge = document.getElementById("badgeUsuario");
+            const btnLogin = document.getElementById("btnAbrirLogin");
+            const btnLogout = document.getElementById("btnCerrarSesion");
+            const btnCarrito = document.getElementById("btnCarritoNav");
+
+            const vistaCliente = document.getElementById("vistaClienteWrapper");
+            const vistaCocina = document.getElementById("vistaCocinaWrapper");
+            const vistaAdmin = document.getElementById("vistaAdminWrapper");
+
+            const enlacesCliente = document.querySelectorAll(".enlace-cliente");
+            const navCocina = document.getElementById("navCocina");
+            const navAdmin = document.getElementById("navAdmin");
+
+            body.classList.remove("tema-cliente", "tema-cocina", "tema-admin");
+
+            if (sesionActual.rol === "Cocina") {
+                body.classList.add("tema-cocina");
+                badge.className = "badge bg-warning text-dark py-2 px-3";
+                badge.innerHTML = `<i class="bi bi-fire"></i> Cocina`;
+
+                vistaCliente.classList.add("d-none");
+                vistaCocina.classList.remove("d-none");
+                vistaAdmin.classList.add("d-none");
+
+                enlacesCliente.forEach(el => el.classList.add("d-none"));
+                navCocina.classList.remove("d-none");
+                navAdmin.classList.add("d-none");
+
+                btnCarrito.classList.add("d-none");
+                btnLogin.classList.add("d-none");
+                btnLogout.classList.remove("d-none");
+
+            } else if (sesionActual.rol === "Admin") {
+                body.classList.add("tema-admin");
+                badge.className = "badge bg-primary text-white py-2 px-3";
+                badge.innerHTML = `<i class="bi bi-sliders"></i> Administrador`;
+
+                vistaCliente.classList.add("d-none");
+                vistaCocina.classList.add("d-none");
+                vistaAdmin.classList.remove("d-none");
+
+                enlacesCliente.forEach(el => el.classList.add("d-none"));
+                navCocina.classList.add("d-none");
+                navAdmin.classList.remove("d-none");
+
+                btnCarrito.classList.add("d-none");
+                btnLogin.classList.add("d-none");
+                btnLogout.classList.remove("d-none");
+
+            } else {
+                body.classList.add("tema-cliente");
+                badge.className = "badge bg-light text-dark py-2 px-3";
+
+                if (sesionActual.autenticado) {
+                    badge.innerHTML = `<i class="bi bi-person-check-fill text-success"></i> ${sesionActual.nombre}`;
+                    btnLogin.classList.add("d-none");
+                    btnLogout.classList.remove("d-none");
+
+                    document.getElementById("resNombre").value = sesionActual.nombre;
+                    document.getElementById("resContacto").value = sesionActual.telefono;
+                    document.getElementById("carritoCliente").value = sesionActual.nombre;
+                    document.getElementById("carritoTelefono").value = sesionActual.telefono;
+                    document.getElementById("subtituloHistorial").textContent = `Mostrando pedidos y reservas asociados a ${sesionActual.nombre} (${sesionActual.telefono})`;
+                } else {
+                    badge.innerHTML = `<i class="bi bi-person"></i> Invitado (Cliente)`;
+                    btnLogin.classList.remove("d-none");
+                    btnLogout.classList.add("d-none");
+                    document.getElementById("subtituloHistorial").textContent = "Revisa el estado en tiempo real de tus órdenes y reservas";
+                }
+
+                vistaCliente.classList.remove("d-none");
+                vistaCocina.classList.add("d-none");
+                vistaAdmin.classList.add("d-none");
+
+                enlacesCliente.forEach(el => el.classList.remove("d-none"));
+                navCocina.classList.add("d-none");
+                navAdmin.classList.add("d-none");
+
+                btnCarrito.classList.remove("d-none");
+            }
+
+            renderizarTodo();
         }
 
         function seleccionarCategoriaTab(cat, boton) {
             categoriaSeleccionada = cat;
             document.querySelectorAll("#tabsCategorias .nav-link").forEach(el => el.classList.remove("active"));
-            boton.classList.add("active");
+            if (boton) boton.classList.add("active");
             mostrarPlatos();
         }
 
@@ -590,11 +989,13 @@
 
         function mostrarPlatos() {
             const lista = document.getElementById("listaPlatos");
+            if (!lista) return;
+
             const texto = document.getElementById("buscar").value.toLowerCase();
             const prot = document.getElementById("filtroProteina").value;
             const form = document.getElementById("filtroFormato").value;
 
-            lista.innerHTML = "";
+            let html = "";
 
             platos.forEach((plato, index) => {
                 const coincideTexto = plato.nombre.toLowerCase().includes(texto) || plato.descripcion.toLowerCase().includes(texto);
@@ -603,7 +1004,7 @@
                 const coincideForm = (form === "Todos" || plato.formato === form);
 
                 if (coincideTexto && coincideCat && coincideProt && coincideForm) {
-                    lista.innerHTML += `
+                    html += `
                         <div class="col-md-6 col-lg-4">
                             <div class="card h-100 shadow-sm border-0 card-plato">
                                 <div class="position-relative">
@@ -619,7 +1020,7 @@
                                     <p class="card-text text-muted small flex-grow-1">${plato.descripcion}</p>
                                     <div class="d-flex justify-content-between align-items-center pt-3 border-top mt-2">
                                         <span class="fs-5 fw-bold text-dark">$${plato.precio.toLocaleString("es-CL")}</span>
-                                        <button class="btn btn-dorado btn-sm px-3" onclick="abrirModalPersonalizar(${index})">
+                                        <button type="button" class="btn btn-dorado btn-sm px-3" onclick="abrirModalPersonalizar(${index})">
                                             <i class="bi bi-plus-lg"></i> Pedir
                                         </button>
                                     </div>
@@ -630,21 +1031,38 @@
                 }
             });
 
-            if (lista.innerHTML === "") {
-                lista.innerHTML = `
+            if (html === "") {
+                html = `
                     <div class="col-12 text-center py-5 bg-white rounded-4 shadow-sm">
                         <i class="bi bi-search fs-1 text-muted"></i>
                         <p class="text-muted mt-2 mb-3">No encontramos platos que coincidan con tu búsqueda.</p>
-                        <button class="btn btn-outline-secondary btn-sm" onclick="limpiarFiltros()">Ver toda la carta</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" onclick="limpiarFiltros()">Ver toda la carta</button>
                     </div>
                 `;
             }
+
+            lista.innerHTML = html;
+        }
+
+        function obtenerTotalItemsCarrito() {
+            return carrito.reduce((acc, item) => acc + item.cantidad, 0);
         }
 
         function abrirModalPersonalizar(index) {
+            const actuales = obtenerTotalItemsCarrito();
+            const disponibles = MAX_PRODUCTOS_PEDIDO - actuales;
+
+            if (disponibles <= 0) {
+                alert(`Has alcanzado el límite máximo de ${MAX_PRODUCTOS_PEDIDO} productos por pedido.`);
+                return;
+            }
+
             document.getElementById("persPlatoIndex").value = index;
             document.getElementById("persTitulo").textContent = platos[index].nombre;
-            document.getElementById("persCantidad").value = 1;
+            const inputCant = document.getElementById("persCantidad");
+            inputCant.value = 1;
+            inputCant.max = disponibles;
+            document.getElementById("infoCupoCarrito").textContent = `Actualmente llevas ${actuales} productos. Puedes agregar hasta ${disponibles} más.`;
             document.getElementById("persNota").value = "";
             new bootstrap.Modal(document.getElementById("modalPersonalizar")).show();
         }
@@ -653,6 +1071,18 @@
             const index = document.getElementById("persPlatoIndex").value;
             const plato = platos[index];
             const cantidad = parseInt(document.getElementById("persCantidad").value) || 1;
+            const actuales = obtenerTotalItemsCarrito();
+
+            if (cantidad < 1) {
+                alert("La cantidad mínima es 1 producto.");
+                return;
+            }
+
+            if (actuales + cantidad > MAX_PRODUCTOS_PEDIDO) {
+                alert(`No puedes superar el límite máximo de ${MAX_PRODUCTOS_PEDIDO} productos por pedido. Actualmente tienes ${actuales} en tu carrito.`);
+                return;
+            }
+
             const picante = document.getElementById("persPicante").value;
             const extra = document.getElementById("persExtra").value;
             const nota = document.getElementById("persNota").value.trim();
@@ -664,11 +1094,11 @@
                 detalle: `${picante} • ${extra}${nota ? " • " + nota : ""}`
             });
 
-            bootstrap.Modal.getInstance(document.getElementById("modalPersonalizar")).hide();
+            const modalInst = bootstrap.Modal.getInstance(document.getElementById("modalPersonalizar"));
+            if (modalInst) modalInst.hide();
             actualizarCarritoUI();
         }
 
-        // Carrito y modalidad
         function toggleDireccion() {
             const mod = document.getElementById("carritoModalidad").value;
             const grupo = document.getElementById("grupoDireccion");
@@ -679,6 +1109,7 @@
             const contenedor = document.getElementById("itemsCarrito");
             const contador = document.getElementById("contadorCarrito");
             const totalEl = document.getElementById("totalCarrito");
+            const badgeCupo = document.getElementById("badgeCupoCarrito");
 
             contenedor.innerHTML = "";
             let total = 0;
@@ -691,7 +1122,7 @@
                     <div class="card mb-2 p-2 border-0 bg-light rounded-3">
                         <div class="d-flex justify-content-between align-items-start">
                             <strong>${item.cantidad}x ${item.nombre}</strong>
-                            <button class="btn btn-sm text-danger p-0" onclick="eliminarDelCarrito(${idx})"><i class="bi bi-trash"></i></button>
+                            <button type="button" class="btn btn-sm text-danger p-0" onclick="eliminarDelCarrito(${idx})"><i class="bi bi-trash"></i></button>
                         </div>
                         <small class="text-muted">${item.detalle}</small>
                         <div class="text-end fw-bold mt-1">$${(item.precio * item.cantidad).toLocaleString("es-CL")}</div>
@@ -709,6 +1140,7 @@
             }
 
             contador.textContent = totalItems;
+            badgeCupo.textContent = `${totalItems} / ${MAX_PRODUCTOS_PEDIDO} máx.`;
             totalEl.textContent = `$${total.toLocaleString("es-CL")}`;
         }
 
@@ -718,13 +1150,25 @@
         }
 
         function finalizarPedido() {
+            const totalItems = obtenerTotalItemsCarrito();
             if (carrito.length === 0) {
                 alert("Agrega al menos un plato antes de confirmar.");
                 return;
             }
-            const cliente = document.getElementById("carritoCliente").value.trim() || "Cliente";
+            if (totalItems > MAX_PRODUCTOS_PEDIDO) {
+                alert(`El pedido supera el límite máximo permitido de ${MAX_PRODUCTOS_PEDIDO} productos.`);
+                return;
+            }
+
+            const cliente = document.getElementById("carritoCliente").value.trim() || "Cliente Invitado";
+            const telefono = document.getElementById("carritoTelefono").value.trim();
             const modalidad = document.getElementById("carritoModalidad").value;
             const direccion = document.getElementById("carritoDireccion").value.trim();
+
+            if (!validarTelefonoChileno(telefono)) {
+                alert("Por favor ingresa un número de teléfono válido con formato +56 9 1234 5678 o 9 1234 5678.");
+                return;
+            }
 
             if (modalidad === "Despacho a domicilio" && !direccion) {
                 alert("Por favor escribe tu dirección de entrega.");
@@ -734,10 +1178,12 @@
             const numeroAleatorio = Math.floor(1000 + Math.random() * 9000);
             const codigo = `#CH-${numeroAleatorio}`;
             const total = carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+            const telFormateado = normalizarTelefono(telefono);
 
             const nuevoPedido = {
                 codigo,
                 cliente,
+                telefono: telFormateado,
                 modalidad: modalidad === "Despacho a domicilio" ? `${modalidad} (${direccion})` : modalidad,
                 items: [...carrito],
                 total,
@@ -749,42 +1195,119 @@
 
             carrito = [];
             actualizarCarritoUI();
-            bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasCarrito")).hide();
+            const offcanvasInst = bootstrap.Offcanvas.getInstance(document.getElementById("offcanvasCarrito"));
+            if (offcanvasInst) offcanvasInst.hide();
 
             document.getElementById("codigoGenerado").textContent = codigo;
-            document.getElementById("resumenConfirmacion").textContent = `${cliente} • ${nuevoPedido.modalidad} • Total: $${total.toLocaleString("es-CL")}`;
+            document.getElementById("resumenConfirmacion").textContent = `${cliente} (${telFormateado}) • ${nuevoPedido.modalidad} • Total: $${total.toLocaleString("es-CL")}`;
             new bootstrap.Modal(document.getElementById("modalConfirmacion")).show();
 
             renderizarTodo();
         }
 
+        function guardarReserva(e) {
+            e.preventDefault();
+            const nombre = document.getElementById("resNombre").value.trim();
+            const contacto = document.getElementById("resContacto").value.trim();
+            const fecha = document.getElementById("resFecha").value;
+            const hora = document.getElementById("resHora").value;
+            const personas = document.getElementById("resPersonas").value;
+            const notas = document.getElementById("resNotas").value.trim();
+            const alerta = document.getElementById("alertaReserva");
+
+            if (!validarTelefonoChileno(contacto)) {
+                alert("⚠️ Número de teléfono inválido. Debe tener el formato +56 9 1234 5678 o 9 1234 5678.");
+                return;
+            }
+
+            const horarioOcupado = reservas.some(r => 
+                r.fecha === fecha && 
+                r.hora === hora && 
+                r.estado !== "Cancelada"
+            );
+
+            if (horarioOcupado) {
+                alert(`⚠️ Horario no disponible: Ya existe una reserva registrada para el ${fecha} a las ${hora} hrs. Por favor elige otra hora o fecha.`);
+                alerta.className = "alert alert-danger mt-3 rounded-4";
+                alerta.innerHTML = `<i class="bi bi-exclamation-triangle-fill me-2"></i><strong>Horario ocupado:</strong> La fecha ${fecha} a las ${hora} hrs ya se encuentra reservada.`;
+                alerta.classList.remove("d-none");
+                return;
+            }
+
+            const codigoRes = `#RES-${Math.floor(1000 + Math.random() * 9000)}`;
+            const telFormateado = normalizarTelefono(contacto);
+
+            const nuevaReserva = {
+                codigo: codigoRes,
+                nombre,
+                contacto: telFormateado,
+                fecha,
+                hora,
+                personas,
+                notas,
+                estado: "Confirmada"
+            };
+
+            reservas.unshift(nuevaReserva);
+            guardarDatos();
+            e.target.reset();
+
+            if (sesionActual.rol === "Cliente" && sesionActual.autenticado) {
+                document.getElementById("resNombre").value = sesionActual.nombre;
+                document.getElementById("resContacto").value = sesionActual.telefono;
+            }
+
+            alerta.className = "alert alert-success mt-3 rounded-4";
+            alerta.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i><strong>¡Reserva ${codigoRes} confirmada!</strong> Te esperamos, ${nombre}, el ${fecha} a las ${hora} hrs (${personas} personas).`;
+            alerta.classList.remove("d-none");
+            renderizarTodo();
+        }
+
         function renderizarCocina() {
             const lista = document.getElementById("listaCocina");
+            const contador = document.getElementById("contadorOrdenesCocina");
+            if (!lista) return;
             lista.innerHTML = "";
             const activos = pedidos.filter(p => p.estado !== "Entregado");
 
+            contador.textContent = `${activos.length} ${activos.length === 1 ? "Orden Activa" : "Órdenes Activas"}`;
+
             if (activos.length === 0) {
-                lista.innerHTML = `<p class="text-white-50 mb-0">No hay pedidos pendientes en este momento.</p>`;
+                lista.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-check2-circle text-success display-4"></i>
+                        <p class="text-white-50 mt-2 mb-0">No hay pedidos pendientes en cocina en este momento.</p>
+                    </div>`;
                 return;
             }
 
             activos.forEach((p) => {
                 const realIdx = pedidos.indexOf(p);
-                const itemsHtml = p.items.map(i => `<li>${i.cantidad}x <strong>${i.nombre}</strong><br><small class="text-warning">${i.detalle}</small></li>`).join("");
+                const itemsHtml = p.items.map(i => `
+                    <li class="mb-2 border-bottom border-secondary pb-1">
+                        <span class="fs-6 text-white">${i.cantidad}x <strong>${i.nombre}</strong></span><br>
+                        <small class="text-warning">${i.detalle}</small>
+                    </li>`).join("");
+
                 lista.innerHTML += `
-                    <div class="col-md-4">
-                        <div class="card bg-secondary text-white h-100 border-0">
-                            <div class="card-header d-flex justify-content-between fw-bold">
-                                <span>${p.codigo}</span>
-                                <span class="badge bg-warning text-dark">${p.estado}</span>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card card-cocina h-100 rounded-4">
+                            <div class="card-header bg-black d-flex justify-content-between align-items-center fw-bold border-secondary">
+                                <span class="text-warning fs-5">${p.codigo}</span>
+                                <span class="badge ${p.estado === 'Listo para entrega' ? 'bg-info text-dark' : 'bg-warning text-dark'}">${p.estado}</span>
                             </div>
                             <div class="card-body">
-                                <p class="small mb-2"><strong>Entrega:</strong> ${p.modalidad}</p>
-                                <ul class="small ps-3 mb-0">${itemsHtml}</ul>
+                                <p class="small text-white-50 mb-1"><strong>Cliente:</strong> ${p.cliente}</p>
+                                <p class="small text-info mb-3"><strong>Entrega:</strong> ${p.modalidad}</p>
+                                <ul class="list-unstyled mb-0">${itemsHtml}</ul>
                             </div>
-                            <div class="card-footer d-flex gap-2 border-0">
-                                <button class="btn btn-sm btn-info w-100" onclick="cambiarEstadoPedido(${realIdx}, 'Listo para entrega')">Marcar Listo</button>
-                                <button class="btn btn-sm btn-success w-100" onclick="cambiarEstadoPedido(${realIdx}, 'Entregado')">Entregado</button>
+                            <div class="card-footer bg-black d-flex gap-2 border-secondary">
+                                <button type="button" class="btn btn-sm btn-info fw-bold w-100" onclick="cambiarEstadoPedido(${realIdx}, 'Listo para entrega')">
+                                    <i class="bi bi-bell-fill"></i> Marcar Listo
+                                </button>
+                                <button type="button" class="btn btn-sm btn-success fw-bold w-100" onclick="cambiarEstadoPedido(${realIdx}, 'Entregado')">
+                                    <i class="bi bi-check-lg"></i> Entregado
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -798,17 +1321,61 @@
             renderizarTodo();
         }
 
-        function cambiarRol(rol) {
-            document.getElementById("badgeUsuario").textContent = `Vista: ${rol}`;
-            document.getElementById("navCocina").classList.toggle("d-none", rol === "Cliente");
-            document.getElementById("cocina").classList.toggle("d-none", rol === "Cliente");
-            document.getElementById("navAdmin").classList.toggle("d-none", rol !== "Admin");
-            document.getElementById("admin").classList.toggle("d-none", rol !== "Admin");
-            bootstrap.Modal.getInstance(document.getElementById("modalLogin")).hide();
+        function renderizarAdminReservas() {
+            const tbody = document.getElementById("tablaAdminReservas");
+            if (!tbody) return;
+            tbody.innerHTML = "";
+
+            if (reservas.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted py-3">No hay reservas de mesas registradas.</td></tr>`;
+                return;
+            }
+
+            reservas.forEach((r, idx) => {
+                let badgeEstado = "bg-success";
+                if (r.estado === "Cancelada") badgeEstado = "bg-danger";
+                if (r.estado === "Completada") badgeEstado = "bg-secondary";
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="fw-bold">${r.codigo || "#RES-" + (idx + 1)}</td>
+                        <td>${r.nombre}</td>
+                        <td>${r.contacto}</td>
+                        <td>${r.fecha}</td>
+                        <td class="fw-bold">${r.hora}</td>
+                        <td>${r.personas} pers.</td>
+                        <td class="small text-muted">${r.notas || "-"}</td>
+                        <td><span class="badge ${badgeEstado}">${r.estado || "Confirmada"}</span></td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <button type="button" class="btn btn-outline-success" title="Confirmar" onclick="cambiarEstadoReserva(${idx}, 'Confirmada')"><i class="bi bi-check-lg"></i></button>
+                                <button type="button" class="btn btn-outline-secondary" title="Marcar Completada" onclick="cambiarEstadoReserva(${idx}, 'Completada')"><i class="bi bi-flag"></i></button>
+                                <button type="button" class="btn btn-outline-danger" title="Cancelar y liberar horario" onclick="cambiarEstadoReserva(${idx}, 'Cancelada')"><i class="bi bi-x-lg"></i></button>
+                                <button type="button" class="btn btn-danger" title="Eliminar registro" onclick="eliminarReservaAdmin(${idx})"><i class="bi bi-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function cambiarEstadoReserva(idx, nuevoEstado) {
+            reservas[idx].estado = nuevoEstado;
+            guardarDatos();
+            renderizarTodo();
+        }
+
+        function eliminarReservaAdmin(idx) {
+            if (confirm("¿Eliminar permanentemente esta reserva del historial?")) {
+                reservas.splice(idx, 1);
+                guardarDatos();
+                renderizarTodo();
+            }
         }
 
         function renderizarCrudPlatos() {
             const tbody = document.getElementById("tablaCrudPlatos");
+            if (!tbody) return;
             tbody.innerHTML = "";
             platos.forEach((p, idx) => {
                 tbody.innerHTML += `
@@ -819,8 +1386,8 @@
                         <td>${p.formato}</td>
                         <td>$${p.precio.toLocaleString("es-CL")}</td>
                         <td>
-                            <button class="btn btn-sm btn-warning" onclick="editarPlatoCrud(${idx})"><i class="bi bi-pencil"></i></button>
-                            <button class="btn btn-sm btn-danger" onclick="eliminarPlatoCrud(${idx})"><i class="bi bi-trash"></i></button>
+                            <button type="button" class="btn btn-sm btn-warning" onclick="editarPlatoCrud(${idx})"><i class="bi bi-pencil"></i></button>
+                            <button type="button" class="btn btn-sm btn-danger" onclick="eliminarPlatoCrud(${idx})"><i class="bi bi-trash"></i></button>
                         </td>
                     </tr>
                 `;
@@ -872,63 +1439,92 @@
         }
 
         function renderizarHistorialYReportes() {
-            const tbody = document.getElementById("tablaHistorial");
-            tbody.innerHTML = "";
-            let ingresos = 0;
+            const tbodyPedidos = document.getElementById("tablaHistorial");
+            const tbodyReservas = document.getElementById("tablaReservasCliente");
+            if (!tbodyPedidos || !tbodyReservas) return;
 
-            pedidos.forEach(p => {
-                ingresos += p.total;
+            tbodyPedidos.innerHTML = "";
+            tbodyReservas.innerHTML = "";
+
+            let ingresos = 0;
+            pedidos.forEach(p => { ingresos += p.total; });
+
+            const esClienteLogueado = sesionActual.rol === "Cliente" && sesionActual.autenticado;
+
+            const pedidosMostrar = esClienteLogueado
+                ? pedidos.filter(p => p.telefono === sesionActual.telefono || p.cliente.toLowerCase() === sesionActual.nombre.toLowerCase())
+                : pedidos;
+
+            const reservasMostrar = esClienteLogueado
+                ? reservas.filter(r => r.contacto === sesionActual.telefono || r.nombre.toLowerCase() === sesionActual.nombre.toLowerCase())
+                : reservas;
+
+            pedidosMostrar.forEach(p => {
                 const resumenItems = p.items.map(i => `${i.cantidad}x ${i.nombre}`).join(", ");
-                tbody.innerHTML += `
+                let badgeClass = "bg-warning text-dark";
+                if (p.estado === "Listo para entrega") badgeClass = "bg-info text-dark";
+                if (p.estado === "Entregado") badgeClass = "bg-success";
+
+                tbodyPedidos.innerHTML += `
                     <tr>
                         <td class="fw-bold text-chunghwa">${p.codigo}</td>
                         <td>${p.cliente}</td>
+                        <td class="small">${p.telefono || "-"}</td>
                         <td>${p.modalidad}</td>
                         <td>${resumenItems}</td>
                         <td class="fw-semibold">$${p.total.toLocaleString("es-CL")}</td>
-                        <td><span class="badge ${p.estado === 'Entregado' ? 'bg-success' : 'bg-warning text-dark'}">${p.estado}</span></td>
+                        <td><span class="badge ${badgeClass}">${p.estado}</span></td>
                     </tr>
                 `;
             });
 
-            if (pedidos.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-3">Aún no hay pedidos registrados.</td></tr>`;
+            if (pedidosMostrar.length === 0) {
+                tbodyPedidos.innerHTML = `<tr><td colspan="7" class="text-center text-muted py-3">No tienes pedidos registrados aún.</td></tr>`;
+            }
+
+            reservasMostrar.forEach((r, idx) => {
+                let badgeRes = "bg-success";
+                if (r.estado === "Cancelada") badgeRes = "bg-danger";
+                if (r.estado === "Completada") badgeRes = "bg-secondary";
+
+                tbodyReservas.innerHTML += `
+                    <tr>
+                        <td class="fw-bold text-chunghwa">${r.codigo || "#RES-" + (idx + 1)}</td>
+                        <td>${r.nombre}</td>
+                        <td class="small">${r.contacto}</td>
+                        <td>${r.fecha}</td>
+                        <td class="fw-bold">${r.hora} hrs</td>
+                        <td>${r.personas} personas</td>
+                        <td><span class="badge ${badgeRes}">${r.estado || "Confirmada"}</span></td>
+                    </tr>
+                `;
+            });
+
+            if (reservasMostrar.length === 0) {
+                tbodyReservas.innerHTML = `<tr><td colspan="7" class="text-center text-muted py-3">No tienes reservas de mesas registradas aún.</td></tr>`;
             }
 
             document.getElementById("repPedidos").textContent = pedidos.length;
             document.getElementById("repIngresos").textContent = `$${ingresos.toLocaleString("es-CL")}`;
-            document.getElementById("repReservas").textContent = reservas.length;
-        }
-
-        function guardarReserva(e) {
-            e.preventDefault();
-            const res = {
-                nombre: document.getElementById("resNombre").value,
-                contacto: document.getElementById("resContacto").value,
-                fecha: document.getElementById("resFecha").value,
-                hora: document.getElementById("resHora").value,
-                personas: document.getElementById("resPersonas").value,
-                notas: document.getElementById("resNotas").value
-            };
-            reservas.push(res);
-            guardarDatos();
-            e.target.reset();
-
-            const alerta = document.getElementById("alertaReserva");
-            alerta.innerHTML = `<i class="bi bi-check-circle-fill me-2"></i><strong>¡Reserva confirmada!</strong> Te esperamos, ${res.nombre}, el ${res.fecha} a las ${res.hora} (${res.personas} personas).`;
-            alerta.classList.remove("d-none");
-            renderizarHistorialYReportes();
+            document.getElementById("repReservas").textContent = reservas.filter(r => r.estado !== "Cancelada").length;
         }
 
         function renderizarTodo() {
             mostrarPlatos();
             renderizarCocina();
+            renderizarAdminReservas();
             renderizarCrudPlatos();
             renderizarHistorialYReportes();
         }
 
-        actualizarCarritoUI();
-        renderizarTodo();
+        document.addEventListener("DOMContentLoaded", function() {
+            const hoyISO = new Date().toISOString().split("T")[0];
+            const inputFecha = document.getElementById("resFecha");
+            if (inputFecha) inputFecha.setAttribute("min", hoyISO);
+
+            actualizarCarritoUI();
+            aplicarInterfazPorRol();
+        });
     </script>
 </body>
 </html>
